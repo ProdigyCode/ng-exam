@@ -1,0 +1,64 @@
+<div class="container">
+	<form class="form-inline py-3">
+		<div class="form-group pr-3">
+			<select class="form-control" [(ngModel)]="region" name="region" (change)="regionOnChange(region)">
+				<option value="asean" selected="selected">ASEAN</option>
+				<option value="eu">EU</option>
+				<option value="efta">EFTA</option>
+				<option value="caricom">CARICOM</option>
+				<option value="pa">PA</option>
+				<option value="au">AU</option>
+				<option value="usan">USAN</option>
+				<option value="eeu">EEU</option>
+				<option value="al">AL</option>
+				<option value="cais">CAIS</option>
+				<option value="cefta">CEFTA</option>
+				<option value="nafta">NAFTA</option>
+				<option value="saarc">SAARC</option>
+			</select>
+		</div>
+		<div class="form-group pr-3">
+			<select class="form-control" [(ngModel)]="language" name="language" (change)="languageOnChange(language)">
+				<option value="en">EN</option>
+				<option value="de">DE</option>
+				<option value="es">ES</option>
+				<option value="fr">FR</option>
+				<option value="ja">JA</option>
+				<option value="it">IT</option>
+				<option value="br">BR</option>
+				<option value="pt">PT</option>
+				<option value="nl">NL</option>
+				<option value="hr">HR</option>
+				<option value="fa">FA</option>
+			</select>
+		</div>
+		<button type="submit" class="btn btn-primary" (click)="ok()">OK</button>
+	</form>
+	<div class="row">
+		<div class="col-4">
+			<div class="list-group">
+				<a *ngFor='let countryDisplay of countryDisplayList' [routerLink]="['/map', region, language, countryDisplay.name]" class="list-group-item list-group-item-action" [ngClass]="{'active' : countryDisplay.id === country}">
+					{{countryDisplay.name}}
+				</a>
+			</div>
+		</div>
+		<div class="col-8" *ngIf="countryDetail">
+			<div class="card">
+				<img class="card-img-top" src="{{getStaticMapUrl()}}" alt="Card image cap">
+				<div class="card-body">
+					<h4 class="card-title">{{getCountryName()}}<img src="{{countryDetail.flag}}" width="40px" alt="Card image cap"></h4>
+					<dl class="row">
+						<dt class="col-sm-3">Capital</dt>
+						<dd class="col-sm-9">{{countryDetail.capital}}</dd>
+						<dt class="col-sm-3">Area</dt>
+						<dd class="col-sm-9">{{countryDetail.area}}</dd>
+						<dt class="col-sm-3">Region</dt>
+						<dd class="col-sm-9">{{countryDetail.region}}</dd>
+						<dt class="col-sm-3">Regional Blocs</dt>
+						<dd class="col-sm-9">{{countryDetail.regional_blocs}}</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>	
